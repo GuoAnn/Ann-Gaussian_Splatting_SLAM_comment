@@ -8,7 +8,15 @@
 #
 # For inquiries contact  george.drettakis@inria.fr
 #
-
+'''导入必要的库：
+torch 和 nn 用于构建神经网络。
+numpy 用于数值计算。
+os, json 用于文件操作。
+PlyData, PlyElement 用于处理PLY文件。
+RGB2SH 用于颜色空间转换。
+distCUDA2 用于计算距离。
+BasicPointCloud 用于处理点云数据。
+inverse_sigmoid, get_expon_lr_func, build_rotation, strip_symmetric, build_scaling_rotation 用于数学和几何计算。'''
 import os
 
 import numpy as np
@@ -30,7 +38,9 @@ from gaussian_splatting.utils.graphics_utils import BasicPointCloud, getWorld2Vi
 from gaussian_splatting.utils.sh_utils import RGB2SH
 from gaussian_splatting.utils.system_utils import mkdir_p
 
-
+'''类定义 GaussianModel：
+包含多个属性，用于存储点云数据、特征、缩放、旋转、不透明度等信息。
+包含一个优化器，用于训练模型。'''
 class GaussianModel:
     def __init__(self, sh_degree: int, config=None):
         self.active_sh_degree = 0
