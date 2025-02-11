@@ -49,7 +49,7 @@ class Frustum:
         self.eye = eye
         self.up = up
 
-
+#创建一个视锥体对象
 def create_frustum(pose, frusutum_color=[0, 1, 0], size=0.02):
     points = (
         np.array(
@@ -75,7 +75,11 @@ def create_frustum(pose, frusutum_color=[0, 1, 0], size=0.02):
     frustum.update_pose(pose)
     return frustum
 
-
+'''功能：封装高斯分布的相关信息，包括位置、缩放、旋转、特征等，同时包含关键帧、当前帧、真值颜色、深度和法线等图像信息。
+__init__ 方法：初始化 GaussianPacket 对象，接收高斯分布对象、关键帧、当前帧、真值图像等参数。如果传入了高斯分布对象，则复制其相关属性。同时，对真值图像进行缩放处理。
+resize_img 方法：将输入的图像缩放到指定宽度。如果输入是 numpy.ndarray 类型，则使用 cv2.resize 函数进行缩放；如果是 torch.Tensor 类型，则使用 torch.nn.functional.interpolate 函数进行缩放。
+get_covariance 方法：根据缩放因子和旋转信息计算高斯分布的协方差矩阵。
+build_covariance_from_scaling_rotation 方法：通过调用 build_scaling_rotation 函数构建协方差矩阵，并使用 strip_symmetric 函数对矩阵进行对称化处理'''
 class GaussianPacket:
     def __init__(
         self,
@@ -142,7 +146,7 @@ class GaussianPacket:
         symm = strip_symmetric(actual_covariance)
         return symm
 
-
+#功能：从队列中获取最新的消息。
 def get_latest_queue(q):
     message = None
     while True:
@@ -160,7 +164,7 @@ def get_latest_queue(q):
 class Packet_vis2main:
     flag_pause = None
 
-
+#功能：用于管理图形用户界面（GUI）的参数。初始化时接收管道对象、背景信息、高斯分布对象以及两个队列（主模块到可视化模块和可视化模块到主模块），将这些参数存储为类的属性，方便后续使用。
 class ParamsGUI:
     def __init__(
         self,
