@@ -12,7 +12,9 @@ from gaussian_splatting.utils.general_utils import (
 
 cv_gl = np.array([[1, 0, 0, 0], [0, -1, 0, 0], [0, 0, -1, 0], [0, 0, 0, 1]])
 
-
+'''功能：表示相机的视锥体，用于可视化和计算相机的视角信息。
+__init__ 方法：初始化视锥体对象，接收一个 open3d.geometry.LineSet 对象表示视锥体的线条集合，以及视角方向、视角后方方向和视锥体大小等参数。
+update_pose 方法：根据输入的相机位姿矩阵 pose 更新视锥体的位置和视角信息。通过将视锥体的点转换到新的坐标系中，计算出相机的位置、视角中心和上方向等信息。'''
 class Frustum:
     def __init__(self, line_set, view_dir=None, view_dir_behind=None, size=None):
         self.line_set = line_set
